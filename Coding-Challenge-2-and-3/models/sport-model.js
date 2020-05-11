@@ -1,7 +1,37 @@
 const mongoose = require( 'mongoose' );
 
-/* Your code goes here */
+const sportCollectionsScchema = mongoose.Schema({
 
-module.exports = {
-    
-};
+    sportId:{
+        type:Number,
+        required:true,
+        unique:true
+    },
+    name:{
+        type:String,
+        required:true
+    },
+    num_players:{
+        type:Number,
+        required:true,
+    }
+});
+
+
+const sportsCollection = mongoose.model('sports',sportCollectionsScchema);
+
+const Sports={
+    createSport:function (newSport)
+    {
+        return sportsCollection
+            .create(newSport)
+            .then(createdSport=>{
+                return createdSport;
+            })
+            .catch(err=>{
+                return err;
+            })
+    }
+}
+
+module.exports = {Sports};
